@@ -11,9 +11,10 @@ public class DrawLine : MonoBehaviour
     [SerializeField] private List<Material> _materials;
     private LineRenderer _line;
     private Vector3 _previousPos;
-
+    private Vector3 _startPos;
     private void Awake()
     {
+        _startPos = transform.position;
         _line = GetComponent<LineRenderer>();
         _previousPos = transform.position;
     }
@@ -24,7 +25,7 @@ public class DrawLine : MonoBehaviour
     {
         if(CanDraw)
         {
-            Vector3 currentPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 currentPosition = _camera.ScreenToWorldPoint(Input.mousePosition) -_startPos;
             currentPosition.z = 0;
             if (Vector3.Distance(currentPosition, _previousPos) > minDistance)
             {
